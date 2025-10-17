@@ -9,12 +9,7 @@ const Header = () => {
     <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
       <Container>       
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
-          <img
-            src="https://via.placeholder.com/40" 
-            alt="Logo"
-            className="d-inline-block align-top me-2"
-          />
-          <span>Todo por 2 pesos - Lo mejor de Capussoto</span>
+          <span>Pre-Entrega React</span>
         </Navbar.Brand>
 
         <Nav className="ms-auto align-items-center">
@@ -23,8 +18,8 @@ const Header = () => {
           <Nav.Link as={Link} to="/infaltables" className="me-3">Infaltables</Nav.Link>
 
           <div className="d-flex align-items-center">
-            <Button variant="outline-light" as={Link} to="/administracion" className="me-2">
-              Administración
+            <Button variant="outline-light" as={Link} to="/login" className="me-2">
+              Iniciar sesión
             </Button>
             <Link to="/carrito" className="text-white">
               <FontAwesomeIcon icon={faShoppingCart} size="lg" />

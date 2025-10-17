@@ -4,7 +4,7 @@ import { Card, Button } from 'react-bootstrap';
 const ProductCard = ({ product, agregarAlCarrito }) => {
     return (
 
-    <Card className="h-100 d-flex flex-column">
+    <Card className="h-100 d-flex flex-column shadow-sm border-5">
       <Card.Img
         variant="top"
         src={product.image}
@@ -22,7 +22,7 @@ const ProductCard = ({ product, agregarAlCarrito }) => {
         <Card.Text>
           <strong>${product.price}</strong>
         </Card.Text>
-        <Button variant="primary" onClick={() => agregarAlCarrito(product)}>
+        <Button variant="primary" className="mt-auto" onClick={() => agregarAlCarrito(product)}>
           Agregar al carrito
         </Button>
       </Card.Body>
