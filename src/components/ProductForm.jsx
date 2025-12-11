@@ -6,7 +6,7 @@ import { useProducts } from '../context/ProductsContext';
 const ProductForm = () => {
   const { agregarProducto, editarProducto, getProductoById } = useProducts();
   const navigate = useNavigate();
-  const { id } = useParams(); // Si hay ID, estamos editando
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     title: '',
@@ -33,17 +33,17 @@ const ProductForm = () => {
     e.preventDefault();
     
     if (id) {
-      editarProducto({ ...formData, id: parseInt(id) }); // Aseguramos que el ID se mantenga
+      editarProducto({ ...formData, id: parseInt(id) });
       alert("Producto actualizado correctamente");
     } else {
       agregarProducto({ 
         ...formData, 
         price: parseFloat(formData.price), 
-        image: formData.image || "https://via.placeholder.com/150" // Sino agregamos imagen por defecto
+        image: formData.image || "https://via.placeholder.com/150"
       }); 
       alert("Producto creado correctamente");
     }
-    navigate('/'); // Volver al inicio
+    navigate('/');
   };
 
   return (

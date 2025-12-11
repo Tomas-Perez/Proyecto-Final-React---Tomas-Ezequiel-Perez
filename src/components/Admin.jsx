@@ -8,7 +8,6 @@ const Admin = () => {
   const { user } = useAuth();
   const { productos, eliminarProducto } = useProducts();
 
-  // Validación de seguridad
   if (user?.role !== 'admin') {
     return (
         <Container className="mt-5 text-center">
