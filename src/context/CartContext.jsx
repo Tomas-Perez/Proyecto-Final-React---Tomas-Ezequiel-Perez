@@ -7,15 +7,21 @@ export const CartProvider = ({ children }) => {
 
   // Función para agregar productos
   const agregarAlCarrito = (producto) => {
-
-    const existe = carrito.find((item) => item.id === producto.id);
     
-    if (existe) { // REVISAR
-      // Si ya existe, podríamos aumentar la cantidad (lógica futura)
-      alert("El producto ya está en el carrito");
+    const existe = carrito.find((item) => item.id === producto.id);
+
+    if (existe) {
+      const carritoActualizado = carrito.map((item) =>
+        item.id === producto.id 
+          ? { ...item, quantity: item.quantity + 1 } 
+          : item
+        
+      );
+      setCarrito(carritoActualizado);
+      alert("Producto agregado al carrito");
     } else {
-      setCarrito([...carrito, producto]);
-      alert("Producto agregado correctamente");
+      setCarrito([...carrito, { ...producto, quantity: 1 }]);
+      alert("Producto agregado al carrito");
     }
   };
 

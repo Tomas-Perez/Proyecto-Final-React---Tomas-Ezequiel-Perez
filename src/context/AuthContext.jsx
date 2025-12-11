@@ -19,7 +19,7 @@ const login = (username, password) => {
     
     let rolAsignado = 'user'; // Por defecto es cliente
 
-    if (password === '1234') {
+    if (password === '1234' && username === 'admin') {
       rolAsignado = 'admin';
     }
 
@@ -27,7 +27,7 @@ const login = (username, password) => {
       name: username, 
       role: rolAsignado
     };
-    
+
     const fakeToken = "token-seguro-" + Date.now();
     
     setToken(fakeToken);

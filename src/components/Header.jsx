@@ -16,29 +16,45 @@ const Header = () => {
           <span>Proyecto Final React</span>
         </Navbar.Brand>
 
-        <Nav className="ms-auto align-items-center">
-          <Nav.Link as={Link} to="/" className="me-3">Home</Nav.Link> 
-          <Nav.Link as={Link} to="/ofertas" className="me-3">Ofertas</Nav.Link>
-          <Nav.Link as={Link} to="/infaltables" className="me-3">Infaltables</Nav.Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+        
+          <Nav className="ms-auto align-items-center">
+            <Nav.Link as={Link} to="/" className="me-3">Home</Nav.Link> 
+            <Nav.Link as={Link} to="/ofertas" className="me-3">Ofertas</Nav.Link>
+            <Nav.Link as={Link} to="/infaltables" className="me-3">Infaltables</Nav.Link>
 
-          <div className="d-flex align-items-center">
-            {user ? (
-              <>
-                <span className="text-white me-3">Hola, {user.name}</span>
-                <Button variant="outline-danger" onClick={logout} className="me-2">
-                  Cerrar sesión
-                </Button>
-              </>
-            ) : (
-              <Button variant="outline-light" as={Link} to="/login" className="me-2">
-                Iniciar sesión
+            {user && user.role === 'admin' && (
+              <Button 
+                as={Link} 
+                to="/admin" 
+                variant="warning" 
+                size="sm" 
+                className="me-3 fw-bold"
+              >
+                Panel Admin
               </Button>
             )}
-            <Link to="/carrito" className="text-white">
-              <FontAwesomeIcon icon={faShoppingCart} size="lg" />
-            </Link>
-          </div>
-        </Nav>
+
+            <div className="d-flex align-items-center mt-3 mt-lg-0">
+              {user ? (
+                <>
+                  <span className="text-white me-3">Hola, {user.name}</span>
+                  <Button variant="outline-danger" onClick={logout} className="me-2">
+                    Cerrar sesión
+                  </Button>
+                </>
+              ) : (
+                <Button variant="outline-light" as={Link} to="/login" className="me-2">
+                  Iniciar sesión
+                </Button>
+              )}
+              <Link to="/carrito" className="text-white">
+                <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+              </Link>
+            </div>
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
