@@ -1,21 +1,43 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // (null = no logueado)
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('authToken') || null);
+
+  useEffect(() => {
+    if (token) {
+      const storedUser = localStorage.getItem('authUser');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser)); 
+      }
+    }
+  }, [token]);
 
   const login = (userData) => {
-    setUser(userData); // Guardamos los datos del usuario
+    const fakeToken = "abc-123-xyz-token-seguro-";
+    
+    setToken(fakeToken);
+    setUser(userData);
+    
+    localStorage.setItem('authToken', fakeToken);
+    localStorage.setItem('authUser', JSON.stringify(userData));
+    
+    console.log("Token generado:", fakeToken);
   };
 
   const logout = () => {
-    setUser(null); // Volvemos a null
+    setToken(null);
+    setUser(null);
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('authUser');
   };
 
+  const isAuthenticated = !!token; 
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, token, isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
