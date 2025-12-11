@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
+import { useCart } from '../context/CartContext';
 
 const ProductList = ({ category = null }) =>
     {
         const [products, setProducts] = useState([]);
         const [loading, setLoading] = useState(true);
+
+        const { agregarAlCarrito } = useCart();
 
          useEffect(() => 
         {
@@ -41,7 +44,7 @@ const ProductList = ({ category = null }) =>
             <Row>
             {products.map((product) => (
                 <Col md={4} key={product.id} className="mb-4">
-                <ProductCard product={product} agregarAlCarrito={handleAgregarAlCarrito} />
+                <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
                 </Col>
             ))}
             </Row>

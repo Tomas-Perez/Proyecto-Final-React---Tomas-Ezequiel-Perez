@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react'; 
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
+import { useAuth } from '../context/AuthContext'; 
+import { useNavigate } from 'react-router-dom';  
 
 const Login = () => {
+  const [usuario, setUsuario] = useState(''); 
+  const { login } = useAuth(); 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Login enviado');
+    
+    login({ name: usuario }); 
+    
+    navigate('/'); 
   };
 
   return (
@@ -17,7 +26,14 @@ const Login = () => {
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formUsername">
                   <Form.Label>Usuario</Form.Label>
-                  <Form.Control type="text" placeholder="Ingrese su usuario" required />
+                  {}
+                  <Form.Control 
+                    type="text" 
+                    placeholder="Ingrese su usuario" 
+                    required 
+                    value={usuario}
+                    onChange={(e) => setUsuario(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPassword">
