@@ -15,16 +15,26 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  const login = (userData) => {
-    const fakeToken = "abc-123-xyz-token-seguro-";
+const login = (username, password) => {
+    
+    let rolAsignado = 'user'; // Por defecto es cliente
+
+    if (password === '1234') {
+      rolAsignado = 'admin';
+    }
+
+    const userData = { 
+      name: username, 
+      role: rolAsignado
+    };
+    
+    const fakeToken = "token-seguro-" + Date.now();
     
     setToken(fakeToken);
     setUser(userData);
     
     localStorage.setItem('authToken', fakeToken);
     localStorage.setItem('authUser', JSON.stringify(userData));
-    
-    console.log("Token generado:", fakeToken);
   };
 
   const logout = () => {

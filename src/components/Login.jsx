@@ -5,18 +5,20 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [usuario, setUsuario] = useState(''); 
+  const [password, setPassword] = useState('');
+
   const { login } = useAuth(); 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    login({ name: usuario }); 
+    login(usuario, password);
     
     navigate('/'); 
   };
 
-  return (
+return (
     <Container className="d-flex justify-content-center align-items-center min-vh-100">
       <Row className="w-100 justify-content-center">
         <Col md={6} lg={4}>
@@ -26,7 +28,6 @@ const Login = () => {
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formUsername">
                   <Form.Label>Usuario</Form.Label>
-                  {}
                   <Form.Control 
                     type="text" 
                     placeholder="Ingrese su usuario" 
@@ -38,7 +39,13 @@ const Login = () => {
 
                 <Form.Group className="mb-3" controlId="formPassword">
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Ingrese su contraseña" required />
+                  <Form.Control 
+                    type="password" 
+                    placeholder="Ingrese su contraseña" 
+                    required 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Button variant="primary" type="submit" className="w-100">

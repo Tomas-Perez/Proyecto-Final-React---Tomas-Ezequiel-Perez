@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { ProductsProvider } from './context/ProductsContext';
+
 import ProductForm from './components/ProductForm';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -11,6 +12,7 @@ import Login from './components/Login';
 import Footer from './components/Footer';
 import Carrito from "./components/Carrito";
 import ProtectedRoute from './components/ProtectedRoute';
+import Admin from './components/Admin';
 
 function App() {
   return (
@@ -20,13 +22,14 @@ function App() {
           <Router>
             <Header />
             <Routes>
-              {/* Rutas Publicas */}
+              {/* --- RUTAS PÚBLICAS  --- */}
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<Home />} />
               <Route path="/ofertas" element={<Ofertas />} />
               <Route path="/infaltables" element={<Infaltables />} />
 
-              {/* Rutas Protegidas */}
+              {/* --- RUTAS PROTEGIDAS --- */}
+              
               <Route 
                 path="/carrito" 
                 element={
@@ -35,7 +38,16 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
-              
+            
+              <Route 
+                path="/admin" 
+                element={
+                  <ProtectedRoute>
+                    <Admin />
+                  </ProtectedRoute>
+                } 
+              />
+
               <Route 
                 path="/producto/nuevo" 
                 element={
@@ -53,7 +65,7 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
-              
+
             </Routes>
             <Footer/>
           </Router>
