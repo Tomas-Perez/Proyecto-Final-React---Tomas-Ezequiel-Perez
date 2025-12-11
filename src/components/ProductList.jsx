@@ -6,14 +6,16 @@ import { useProducts } from '../context/ProductsContext';
 //import { useAuth } from '../context/AuthContext';
 //import { Link } from 'react-router-dom';
 
-const ProductList = ({ category }) => { 
-    const { productos, loading } = useProducts(); 
+const ProductList = ({ filterFunc }) => { 
+    const { productos, loading, error } = useProducts(); 
     const { agregarAlCarrito } = useCart();
     
-    if (loading) return <div>Cargando productos...</div>;
+    if (loading) return <div className="text-center mt-5">Cargando productos...</div>;
 
-    const productosAMostrar = category 
-        ? productos.filter((prod) => prod.category === category)
+    if (error) return <Alert variant="danger" className="mt-5 text-center">{error}</Alert>;
+
+    const productosAMostrar = filterFunc 
+        ? productos.filter(filterFunc)
         : productos;
 
     return (

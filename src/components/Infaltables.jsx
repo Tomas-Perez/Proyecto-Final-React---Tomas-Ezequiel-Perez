@@ -2,10 +2,10 @@ import React from 'react';
 import ProductList from './ProductList';
 
 const Infaltables = () => {
-  return (
+ return (
     <div className="container">
-      <h1>Infaltables</h1>
-      <ProductList category="jewelery" />
+      <h1>Infaltables (Menos de $25)</h1>
+      <ProductList filterFunc={(prod) => prod.price < 25} />
     </div>
   );
 };
