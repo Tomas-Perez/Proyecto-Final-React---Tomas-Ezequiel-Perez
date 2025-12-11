@@ -91,6 +91,14 @@ const ProductForm = () => {
           </Form.Group>
 
           <Form.Group className="mb-3">
+            <Form.Label>Stock</Form.Label>
+            <Form.Control 
+              type="number" name="stock" required 
+              value={formData.stock} onChange={handleChange} 
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
             <Form.Label>URL de la Imagen</Form.Label>
             <Form.Control 
               type="text" name="image" 

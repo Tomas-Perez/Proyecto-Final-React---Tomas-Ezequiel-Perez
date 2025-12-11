@@ -3,8 +3,8 @@ import { Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductsContext';
-import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
+//import { useAuth } from '../context/AuthContext';
+//import { Link } from 'react-router-dom';
 
 const ProductList = ({ category }) => { 
     const { productos, loading } = useProducts(); 

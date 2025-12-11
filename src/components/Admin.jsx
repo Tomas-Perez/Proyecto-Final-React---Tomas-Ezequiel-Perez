@@ -54,7 +54,7 @@ const Admin = () => {
                 <th>Img</th>
                 <th>Nombre</th>
                 <th>Precio</th>
-                <th>Categoría</th>
+                <th>Stock</th>
                 <th className="text-end">Acciones</th>
               </tr>
             </thead>
@@ -70,7 +70,7 @@ const Admin = () => {
                   </td>
                   <td>{prod.title}</td>
                   <td>${prod.price}</td>
-                  <td>{prod.category}</td>
+                  <td>{prod.stock}</td>
                   <td className="text-end">
                     <Button 
                       as={Link} 
