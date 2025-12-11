@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Button, Table, Card } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Button, Table, Card, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useProducts } from '../context/ProductsContext';
@@ -7,6 +7,26 @@ import { useProducts } from '../context/ProductsContext';
 const Admin = () => {
   const { user } = useAuth();
   const { productos, eliminarProducto } = useProducts();
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedId(null);
+  };
+
+  const handleShow = (id) => {
+    setSelectedId(id);
+    setShowModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (selectedId) {
+      await eliminarProducto(selectedId);
+    }
+    handleClose();
+  };
 
   if (user?.role !== 'admin') {
     return (
@@ -65,10 +85,7 @@ const Admin = () => {
                     <Button 
                       variant="danger" 
                       size="sm"
-                      onClick={() => {
-                        if(window.confirm('¿Estás seguro de eliminar este producto?')) 
-                           eliminarProducto(prod.id)
-                      }}
+                      onClick={() => handleShow(prod.id)} 
                     >
                       🗑️ Eliminar
                     </Button>
@@ -79,6 +96,26 @@ const Admin = () => {
           </Table>
         </Card.Body>
       </Card>
+
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Eliminación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Estás seguro de que deseas eliminar este producto? 
+          <br />
+          <small className="text-muted">Esta acción no se puede deshacer.</small>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={confirmDelete}>
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </Container>
   );
 };

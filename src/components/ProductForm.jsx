@@ -6,16 +6,16 @@ import { useProducts } from '../context/ProductsContext';
 const ProductForm = () => {
   const { agregarProducto, editarProducto, getProductoById } = useProducts();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams(); 
 
   const [formData, setFormData] = useState({
     title: '',
     price: '',
     description: '',
     image: '',
-    category: 'electronic'
   });
 
+ 
   useEffect(() => {
     if (id) {
       const producto = getProductoById(id);
@@ -29,21 +29,43 @@ const ProductForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    if (!formData.title.trim()) {
+        alert("El nombre es obligatorio");
+        return;
+    }
+    if (parseFloat(formData.price) <= 0) {
+        alert("El precio debe ser mayor a 0");
+        return;
+    }
+    if (formData.description.length < 10) {
+        alert("La descripción debe tener al menos 10 caracteres");
+        return;
+    }
+    // --------------------
+
+    let exito = false;
+
     if (id) {
-      editarProducto({ ...formData, id: parseInt(id) });
-      alert("Producto actualizado correctamente");
+ 
+      exito = await editarProducto({ ...formData, id: id });
+      
+      if (exito) alert("Producto actualizado correctamente");
     } else {
-      agregarProducto({ 
+      exito = await agregarProducto({ 
         ...formData, 
         price: parseFloat(formData.price), 
         image: formData.image || "https://via.placeholder.com/150"
       }); 
-      alert("Producto creado correctamente");
+      
+      if (exito) alert("Producto creado correctamente");
     }
-    navigate('/');
+
+    if (exito) {
+      navigate('/');
+    }
   };
 
   return (
